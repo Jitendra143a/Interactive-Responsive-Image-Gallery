@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Responsive Image Gallery</title>
   <style>
-    /* ==========================================
-       1. CORE STYLES & VARIABLES
-       ========================================== */
+   
     :root {
       --bg-color: #f4f7f6;
       --card-bg: #ffffff;
@@ -44,9 +42,7 @@
       font-weight: 700;
     }
 
-    /* ==========================================
-       2. FILTER BUTTONS
-       ========================================== */
+   
     .filter-wrapper {
       display: flex;
       justify-content: center;
@@ -74,12 +70,10 @@
       transform: translateY(-2px);
     }
 
-    /* ==========================================
-       3. RESPONSIVE IMAGE GRID
-       ========================================== */
+   
     .gallery-grid {
       display: grid;
-      /* Automatically adjusts column count based on available space */
+   
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
     }
@@ -94,13 +88,13 @@
       transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, opacity var(--transition-speed) ease;
     }
 
-    /* Smooth scale and shadow lift on hover */
+
     .gallery-item:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
 
-    /* Hidden state for filtered items */
+
     .gallery-item.hidden {
       opacity: 0;
       transform: scale(0.8);
@@ -115,7 +109,7 @@
     .gallery-item img {
       width: 100%;
       height: 220px;
-      object-fit: cover; /* Keeps aspect ratio intact while filling the space */
+      object-fit: cover;
       display: block;
       transition: transform var(--transition-speed) ease;
     }
@@ -140,9 +134,6 @@
       letter-spacing: 1px;
     }
 
-    /* ==========================================
-       4. LIGHTBOX MODAL OVERLAY
-       ========================================== */
     .lightbox {
       position: fixed;
       top: 0;
@@ -194,7 +185,7 @@
       text-align: center;
     }
 
-    /* Lightbox UI Navigation Controls */
+
     .close-btn {
       position: absolute;
       top: -40px;
@@ -228,7 +219,7 @@
     .prev-btn { left: -60px; }
     .next-btn { right: -60px; }
 
-    /* Adjust nav buttons for tighter screens */
+  
     @media (max-width: 768px) {
       .prev-btn { left: -20px; background: rgba(0,0,0,0.5); }
       .next-btn { right: -20px; background: rgba(0,0,0,0.5); }
@@ -241,7 +232,7 @@
   <div class="container">
     <h1>Visual Gallery Explorer</h1>
 
-    <!-- Category Filters -->
+
     <div class="filter-wrapper">
       <button class="filter-btn active" data-filter="all">All Works</button>
       <button class="filter-btn" data-filter="nature">Nature</button>
@@ -249,9 +240,8 @@
       <button class="filter-btn" data-filter="animals">Animals</button>
     </div>
 
-    <!-- Gallery Grid -->
     <div class="gallery-grid" id="gallery">
-      <!-- Item 1 -->
+
       <div class="gallery-item" data-category="nature">
         <img src="https://picsum.photos/id/10/800/600" alt="Serene mountain lake at blanketed morning mist">
         <div class="item-info">
@@ -259,15 +249,14 @@
           <p>Nature</p>
         </div>
       </div>
-      <!-- Item 2 -->
+
       <div class="gallery-item" data-category="architecture">
         <img src="https://picsum.photos/id/1011/800/600" alt="Symmetry of a modern concrete building facade">
         <div class="item-info">
           <h3>Urban Geometry</h3>
           <p>Architecture</p>
         </div>
-      </div>
-      <!-- Item 3 -->
+    
       <div class="gallery-item" data-category="animals">
         <img src="https://picsum.photos/id/1025/800/600" alt="A curious pug wrapped snugly in a blue blanket">
         <div class="item-info">
@@ -275,7 +264,7 @@
           <p>Animals</p>
         </div>
       </div>
-      <!-- Item 4 -->
+ 
       <div class="gallery-item" data-category="nature">
         <img src="https://picsum.photos/id/28/800/600" alt="A solitary forest path winding through towering pine trees">
         <div class="item-info">
@@ -283,7 +272,7 @@
           <p>Nature</p>
         </div>
       </div>
-      <!-- Item 5 -->
+
       <div class="gallery-item" data-category="architecture">
         <img src="https://picsum.photos/id/1031/800/600" alt="Old structural stone bridge spanning over a quiet canal">
         <div class="item-info">
@@ -291,7 +280,7 @@
           <p>Architecture</p>
         </div>
       </div>
-      <!-- Item 6 -->
+
       <div class="gallery-item" data-category="animals">
         <img src="https://picsum.photos/id/1062/800/600" alt="A majestic brown horse running freely through pasture fields">
         <div class="item-info">
@@ -302,7 +291,7 @@
     </div>
   </div>
 
-  <!-- Lightbox Structure -->
+
   <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
     <div class="lightbox-content">
       <button class="close-btn" id="closeBtn" aria-label="Close Lightbox">&times;</button>
@@ -313,9 +302,7 @@
     </div>
   </div>
 
-  <!-- ==========================================
-       5. JAVASCRIPT ENGINE
-       ========================================== */ -->
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const filterButtons = document.querySelectorAll('.filter-btn');
@@ -330,12 +317,10 @@
       let activeItems = [...galleryItems]; // Tracks items currently visible in selected filter
       let currentIndex = 0;
 
-      /* -------------------------------------------
-         A. CATEGORY FILTERING LOGIC
-         ------------------------------------------- */
+    
       filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-          // Switch active class styling on filter tabs
+        
           document.querySelector('.filter-btn.active').classList.remove('active');
           button.classList.add('active');
 
@@ -350,14 +335,11 @@
             }
           });
 
-          // Re-index only the active, visible images so navigation doesn't skip
+         
           activeItems = [...galleryItems].filter(item => !item.classList.contains('hidden'));
         });
       });
 
-      /* -------------------------------------------
-         B. LIGHTBOX CORE FUNCTIONALITY
-         ------------------------------------------- */
       function openLightbox(index) {
         currentIndex = index;
         const targetItem = activeItems[currentIndex];
@@ -369,12 +351,12 @@
         lightboxCaption.textContent = titleTarget.textContent;
 
         lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Stop background scrolling
+        document.body.style.overflow = 'hidden'; 
       }
 
       function closeLightbox() {
         lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // Re-enable background scrolling
+        document.body.style.overflow = ''; 
       }
 
       function navigateLightbox(direction) {
@@ -389,10 +371,10 @@
         openLightbox(currentIndex);
       }
 
-      // Bind click events on gallery cards to launch the Lightbox
+
       galleryItems.forEach(item => {
         item.addEventListener('click', () => {
-          // Find out what position this element holds inside the filtered subset
+   
           const indexInActive = activeItems.indexOf(item);
           if (indexInActive !== -1) {
             openLightbox(indexInActive);
@@ -400,17 +382,15 @@
         });
       });
 
-      // UI Controls Listeners
+
       closeBtn.addEventListener('click', closeLightbox);
       nextBtn.addEventListener('click', () => navigateLightbox('next'));
       prevBtn.addEventListener('click', () => navigateLightbox('prev'));
 
-      // Close if user clicks out on the dark mask instead of UI elements
       lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
       });
 
-      // Keyboard Ergonomics Support (Esc, Left/Right Arrows)
       document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
         
